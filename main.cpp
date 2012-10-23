@@ -18,6 +18,11 @@ for(int i=0; i<64; i++){
     fclose(fp);
 }
 
+struct ConsensusGrid {   // Declare PERSON struct type
+   char *result;   // Declare member types
+   int height;
+   int width;
+};
 
 static void read_raw_image(const char* image_file_path, void* image_buffer, size_t image_width, size_t image_height) {
         const size_t expected_file_size = image_width * image_height; // Grayscale, 16 bits per pixel, LSB
@@ -30,32 +35,23 @@ static void read_raw_image(const char* image_file_path, void* image_buffer, size
                 } else {
                         fprintf(stderr, "Could only read %u out of %u expected bytes from image %s\n",
                                 unsigned(image_bytes_read), unsigned(expected_file_size), image_file_path);
-//                        exit(-1);
                 }
         } else {
                 fprintf(stderr, "Failed to open the input file %s\n", image_file_path);
-  //              exit(-1);
         }
 }
 
 char* consensus(int i, int j,char* image, int image_height, int image_width)
 {
-    char* result = (char*)malloc(sizeof(char)*(image_height-i)*(image_width-j));
-    char* ptr = result;
+    ConsensusGrid consensus_grid;
+    consensus_grid.result = (char*)malloc(sizeof(char)*(image_height-i)*(image_width-j));
+    char* ptr = consensus_grid.result;
     for(int row=i;row<image_height;row++)
     {
         for(int col=j;col<image_width;col++)
         {
-            if(image[row*image_width+col] == image[(row-i)*image_width+col-j])
-            {
-                if(image[row*image_width+col] == '1')
-                    *result='1';
-                else if(image[row*image_width+col] == '0')
-                    *result='0';
-            }
-                else
-                    *result='o';
-            result++;
+            *(consensus_grid.result)= (image[row*image_width+col] == image[(row-i)*image_width+col-j]) ? image[row*image_width+col] : 'o';
+            (consensus_grid.result)++;
         }
     }
 
@@ -80,5 +76,4 @@ int main()
     }
 
     fclose(fp);
-
 }
