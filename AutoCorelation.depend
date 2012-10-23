@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1350939936 source:c:\users\et\desktop\autocorelation\main.cpp
+	<iostream>
+	<stdio.h>
+	<malloc.h>
+
