@@ -1,6 +1,17 @@
 # depslib dependency file v1.0
-1351012007 source:c:\users\et\desktop\autocorelation\main.cpp
+1352267384 source:c:\users\et\desktop\autocorelation\main.cpp
+	"basis.cpp"
+
+1352267868 c:\users\et\desktop\autocorelation\basis.cpp
 	<iostream>
 	<stdio.h>
 	<malloc.h>
+
+1352267372 source:c:\users\et\desktop\autocorelation\basis.cpp
+	<iostream>
+	<stdio.h>
+	<malloc.h>
+
+1352267839 source:c:\users\et\desktop\autocorelation\test.cpp
+	"basis.cpp"
 
