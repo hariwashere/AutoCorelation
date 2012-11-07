@@ -58,13 +58,14 @@ ConsensusGrid consensus_parallel(int i, int j,char* image, int image_height, int
 
         char *result2 = (char*)malloc(sizeof(char)*(row_end-row_start+1)*(col_end-col_start+1));
         consensus_grid.result = result2;
-            for(int row=row_start;row<=row_end;row++)
+            _Cilk_for(int row=row_start;row<=row_end;row++)
             {
-                for(int col=col_start;col<=col_end;col++)
+                _Cilk_for(int col=col_start;col<=col_end;col++)
                 {
                     result2[(row - row_start) * (col_end - col_start + 1) + (col - col_start)] = ptr[row*(image_width-j) + col];
                 }
             }
+            _Cilk_sync;
 
             consensus_grid.height = row_end - row_start + 1;
             consensus_grid.width = col_end - col_start + 1;
