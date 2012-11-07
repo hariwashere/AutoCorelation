@@ -1,4 +1,5 @@
 # include "basis.cpp"
+# include "basis_parallel.cpp"
         int main()
         {
             //image = (char*)malloc(sizeof(char)*image_height*image_width);
