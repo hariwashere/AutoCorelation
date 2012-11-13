@@ -6,9 +6,9 @@ ConsensusGrid consensus_parallel(int i, int j,char* image, int image_height, int
 
             int* row_flag=(int*)calloc(sizeof(int),(image_height-i));
             int* col_flag=(int*)calloc(sizeof(int),(image_width-j));
-            _Cilk_for(int row=i;row<image_height;row++)
+            for(int row=i;row<image_height;row++)
             {
-                _Cilk_for(int col=j;col<image_width;col++)
+                for(int col=j;col<image_width;col++)
                 {
                     if(image[row*image_width+col] == image[(row-i)*image_width+col-j])
                     {
@@ -26,7 +26,7 @@ ConsensusGrid consensus_parallel(int i, int j,char* image, int image_height, int
                     //result++;
                 }
             }
-            _Cilk_sync;
+           //Cilk_sync;
                 int row_start,row_end;
                 int col_start,col_end;
             for(row_start=0;row_start<(image_height-i);row_start++)
@@ -59,14 +59,14 @@ ConsensusGrid consensus_parallel(int i, int j,char* image, int image_height, int
 
         char *result2 = (char*)malloc(sizeof(char)*(row_end-row_start+1)*(col_end-col_start+1));
         consensus_grid.result = result2;
-            _Cilk_for(int row=row_start;row<=row_end;row++) //_Cilk_
+            for(int row=row_start;row<=row_end;row++) //_Cilk_
             {
-                _Cilk_for(int col=col_start;col<=col_end;col++) //_Cilk_
+                for(int col=col_start;col<=col_end;col++) //_Cilk_
                 {
                     result2[(row - row_start) * (col_end - col_start + 1) + (col - col_start)] = ptr[row*(image_width-j) + col];
                 }
             }
-            _Cilk_sync;
+           //Cilk_sync;
 
             consensus_grid.height = row_end - row_start + 1;
             consensus_grid.width = col_end - col_start + 1;

@@ -14,7 +14,9 @@
             for(int i=0; i<image_height; i++){
                 for(int j = 0; j<image_width; j++){
                     meet[i*image_width+j]=consensus(i, j, image,image_height,image_width);
-                    meet[i*image_width+j].occurance = new tuple[image_height*image_width];
+
+
+                    meet[i*image_width+j].occurance = new tuple[(image_height-meet[i*image_width+j].height)*(image_width-meet[i*image_width+j].width)];
             //        if(i==1)
           //           cout<< "the height is"<< meet[i*image_width+j].height<<endl;
             }
@@ -30,8 +32,8 @@
             }
                 for(int i=0; i<meet[63].occurance_count; i++)
                     fprintf(fp,"List\n%d %d\n",meet[63].occurance[i].i,meet[63].occurance[i].j);
-
-            fclose(fp);*/
+*/
+            fclose(fp);
             printf("Calculating basis\n");
             calculate_basis();
 
