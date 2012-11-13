@@ -2,17 +2,18 @@
 # include "basis_parallel.cpp"
         int main()
         {
-            //image = (char*)malloc(sizeof(char)*image_height*image_width);
+            create_image();
+            image = (char*)malloc(sizeof(char)*image_height*image_width);
             //char* result[image_height*image_width];
             meet=(ConsensusGrid*)malloc(sizeof(ConsensusGrid)*image_height*image_width);
             basis = (int*)malloc(sizeof(int)*image_height*image_width);
 
-            //read_raw_image("image.raw",image,image_height,image_width);
+            read_raw_image("image.raw",image,image_height,image_width);
             //image = {'0','0','1','1','1','1','0','0','1','1','0','1'};
             FILE *fp = fopen("image2.txt","w+");
             for(int i=0; i<image_height; i++){
                 for(int j = 0; j<image_width; j++){
-                    meet[i*image_width+j]=consensus_parallel(i, j, image,image_height,image_width);
+                    meet[i*image_width+j]=consensus(i, j, image,image_height,image_width);
                     meet[i*image_width+j].occurance = new tuple[image_height*image_width];
             //        if(i==1)
           //           cout<< "the height is"<< meet[i*image_width+j].height<<endl;

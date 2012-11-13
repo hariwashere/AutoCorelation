@@ -154,9 +154,10 @@
                     }
                 }
                 }
-                cout << "For meet " << i << endl;
+                /*cout << "For meet " << i << endl;
                 for(int g=0;g<meet[i].occurance_count; g++)
                     cout << meet[i].occurance[g].i << " " << meet[i].occurance[g].j << endl;
+            */
             }
 
         }
@@ -181,13 +182,13 @@
                     meet[index] = temp;
                 }
 
-                for(int n = 0;n<image_height*image_width;n++)
+               /* for(int n = 0;n<image_height*image_width;n++)
                 {
                     cout << "for " << n << endl;
                     for(int m =0;m<meet[n].occurance_count;m++)
                             cout << meet[n].occurance[m].i << " " << meet[n].occurance[m].j << endl;
                         cout << endl;
-                }
+                }*/
 
                 for(int i=0; i<image_height*image_width; i++)
                 {
@@ -209,7 +210,7 @@
                                    {
                                        if((meet[k].occurance[l].i == meet[i].occurance[j].i) && (meet[k].occurance[l].j == meet[i].occurance[j].j))
                                         {
-                                                printf("found! i = %d  j = %d %d\n",i,meet[i].occurance[j].i, meet[i].occurance[j].j);
+                                               // printf("found! i = %d  j = %d %d\n",i,meet[i].occurance[j].i, meet[i].occurance[j].j);
                                                 flag = 1;
                                                 break;
                                         }
@@ -230,11 +231,11 @@
                     if(count != meet[i].occurance_count)
                     {
                         basis[basis_count++] = i;
-                        cout << i << endl;
+                       /* cout << i << endl;
                         for(int m =0;m<meet[i].occurance_count;m++)
                             cout << meet[i].occurance[m].i << " " << meet[i].occurance[m].j << endl;
 
-                        cout << endl;
+                        cout << endl;*/
                     }
 
                     else

@@ -1,2 +1,5 @@
 AutoCorelation.layout
 AutoCorelation.cbp
+main.o
+main.exe
+basis.o

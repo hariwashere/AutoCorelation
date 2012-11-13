@@ -6,26 +6,27 @@ ConsensusGrid consensus_parallel(int i, int j,char* image, int image_height, int
 
             int* row_flag=(int*)calloc(sizeof(int),(image_height-i));
             int* col_flag=(int*)calloc(sizeof(int),(image_width-j));
-            for(int row=i;row<image_height;row++)
+            _Cilk_for(int row=i;row<image_height;row++)
             {
-                for(int col=j;col<image_width;col++)
+                _Cilk_for(int col=j;col<image_width;col++)
                 {
                     if(image[row*image_width+col] == image[(row-i)*image_width+col-j])
                     {
                         if(image[row*image_width+col] == '1')
-                            *result='1';
+                            result[(row-i)*(image_width-j)+ (col-j)]='1';
 
                         else if(image[row*image_width+col] == '0')
-                            *result='0';
+                            result[(row-i)*(image_width-j)+ (col-j)]='0';
 
                         row_flag[row-i]=1;
                         col_flag[col-j]=1;
                     }
                         else
-                            *result='o';
-                    result++;
+                            result[(row-i)*(image_width-j)+ (col-j)]='o';
+                    //result++;
                 }
             }
+            _Cilk_sync;
                 int row_start,row_end;
                 int col_start,col_end;
             for(row_start=0;row_start<(image_height-i);row_start++)
@@ -58,9 +59,9 @@ ConsensusGrid consensus_parallel(int i, int j,char* image, int image_height, int
 
         char *result2 = (char*)malloc(sizeof(char)*(row_end-row_start+1)*(col_end-col_start+1));
         consensus_grid.result = result2;
-            _Cilk_for(int row=row_start;row<=row_end;row++)
+            _Cilk_for(int row=row_start;row<=row_end;row++) //_Cilk_
             {
-                _Cilk_for(int col=col_start;col<=col_end;col++)
+                _Cilk_for(int col=col_start;col<=col_end;col++) //_Cilk_
                 {
                     result2[(row - row_start) * (col_end - col_start + 1) + (col - col_start)] = ptr[row*(image_width-j) + col];
                 }
