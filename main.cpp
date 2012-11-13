@@ -16,7 +16,7 @@
                     meet[i*image_width+j]=consensus(i, j, image,image_height,image_width);
 
 
-                    meet[i*image_width+j].occurance = new tuple[(image_height-meet[i*image_width+j].height)*(image_width-meet[i*image_width+j].width)];
+                   // meet[i*image_width+j].occurance = new tuple[(image_height-meet[i*image_width+j].height)*(image_width-meet[i*image_width+j].width)];
             //        if(i==1)
           //           cout<< "the height is"<< meet[i*image_width+j].height<<endl;
             }

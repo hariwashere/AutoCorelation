@@ -118,7 +118,7 @@
             {
                 if((meet[i].height != 0) && (meet[i].width != 0))
                 {
-
+                    tuple* temp_occurance_list = new tuple[image_height*image_width];
                 for(int row_offset=0; row_offset<=image_height - meet[i].height; row_offset++)
                 {
                     for(int col_offset=0; col_offset<=image_width - meet[i].width; col_offset++)
@@ -142,6 +142,7 @@
                         }
                         //if(i == 64)
                         //printf("count = %d",count);
+
                         if(count == meet[i].width*meet[i].height)
                         {
                                 //if(i == 64)
@@ -149,16 +150,24 @@
                                 tuple t;
                                 t.i = row_offset;
                                 t.j = col_offset;
-                               meet[i].occurance[meet[i].occurance_count++] = t;
+                               //meet[i].occurance[meet[i].occurance_count++] = t;
+                               temp_occurance_list[meet[i].occurance_count++] = t;
                         }
                     }
                 }
+                meet[i].occurance = new tuple[meet[i].occurance_count];
+                for(int x=0;x<meet[i].occurance_count; x++)
+                {
+                    meet[i].occurance[x] = temp_occurance_list[x];
+                }
+                free(temp_occurance_list);
                 }
                 /*cout << "For meet " << i << endl;
                 for(int g=0;g<meet[i].occurance_count; g++)
                     cout << meet[i].occurance[g].i << " " << meet[i].occurance[g].j << endl;
             */
             }
+
 
         }
 
