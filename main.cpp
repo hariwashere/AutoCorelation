@@ -14,11 +14,6 @@
             for(int i=0; i<image_height; i++){
                 for(int j = 0; j<image_width; j++){
                     meet[i*image_width+j]=consensus_parallel(i, j, image,image_height,image_width);
-
-
-                   // meet[i*image_width+j].occurance = new tuple[(image_height-meet[i*image_width+j].height)*(image_width-meet[i*image_width+j].width)];
-            //        if(i==1)
-          //           cout<< "the height is"<< meet[i*image_width+j].height<<endl;
             }
             }
 

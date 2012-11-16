@@ -18,20 +18,10 @@
 
         ConsensusGrid consensus(int i, int j,char* image, int image_height, int image_width)
         {
-        //    cout<< "I am in here for "<< i << "and"<<j<<endl;
+
             ConsensusGrid consensus_grid;
-            //consensus_grid.result = (char*)malloc(sizeof(char)*(image_height-i)*(image_width-j));
             char *result = (char*)malloc(sizeof(char)*(image_height-i)*(image_width-j));
             char* ptr = result;
-         /*   for(int row=i;row<image_height;row++)
-            {
-                for(int col=j;col<image_width;col++)
-                {
-                    *(consensus_grid.result)= (image[row*image_width+col] == image[(row-i)*image_width+col-j]) ? image[row*image_width+col] : 'o';
-                    (consensus_grid.result)++;
-                }
-            }
-        */
 
             int* row_flag=(int*)calloc(sizeof(int),(image_height-i));
             int* col_flag=(int*)calloc(sizeof(int),(image_width-j));
@@ -77,7 +67,7 @@
                         if(col_flag[col_end]==1)
                                 break;
         }
-        //cout << row_start << " " << row_end << " " << col_start << " " << col_end << endl;
+
         if((row_start > row_end) || (col_start > col_end) ){
             consensus_grid.result = NULL;
             consensus_grid.height = 0;
@@ -96,7 +86,6 @@
                 }
             }
 
-            //cout<<"Done with the meet creation for "<< i << " and "<< j<<endl;
             consensus_grid.height = row_end - row_start + 1;
             consensus_grid.width = col_end - col_start + 1;
             consensus_grid.occurance = NULL;
@@ -155,11 +144,19 @@
                         }
                     }
                 }
-                meet[i].occurance = new tuple[meet[i].occurance_count];
-                for(int x=0;x<meet[i].occurance_count; x++)
-                {
-                    meet[i].occurance[x] = temp_occurance_list[x];
+                if(meet[i].occurance_count >=2){
+                    meet[i].occurance = new tuple[meet[i].occurance_count];
+                    for(int x=0;x<meet[i].occurance_count; x++)
+                    {
+                        meet[i].occurance[x] = temp_occurance_list[x];
+                    }
                 }
+                else{
+                    meet[i].occurance_count = -1;
+                }
+
+
+
                 free(temp_occurance_list);
                 }
                 /*cout << "For meet " << i << endl;
@@ -173,16 +170,19 @@
 
         void calculate_basis()
         {
+            int not_null_count = 0;
                 for(int i=0; i<image_height*image_width;i++)
                 {
                     int max = -1;
                     int index = i;
                     for(int j=i;j<image_height*image_width;j++)
                     {
-                        if(max < meet[j].occurance_count)
+                        if((meet[j].occurance_count != -1) || (max < meet[j].occurance_count))
                         {
                              max = meet[j].occurance_count;
                              index = j;
+                             if(i==0)
+                             not_null_count++;
                         }
                     }
 
@@ -232,6 +232,7 @@
                         }
                         if(flag != 1)
                             break;
+                        //if(flag ==1)
                         else
                             count++;
 
