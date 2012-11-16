@@ -190,7 +190,7 @@
                     meet[i] = meet[index];
                     meet[index] = temp;
                 }
-
+cout<<"the not null count is "<< not_null_count<<endl;
                /* for(int n = 0;n<image_height*image_width;n++)
                 {
                     cout << "for " << n << endl;
@@ -199,7 +199,7 @@
                         cout << endl;
                 }*/
 
-                for(int i=0; i<image_height*image_width; i++)
+                for(int i=0; i<not_null_count; i++)
                 {
                     /// For every meet make count = 0
                     int count = 0;
@@ -210,7 +210,7 @@
                         int flag = 0;
 
                         /// Compare the occurance list of every meet with current meet
-                        for(int k=0; k<image_height*image_width; k++)
+                        for(int k=0; k<not_null_count; k++)
                         {
                             if( (k!=i) && (meet[k].occurance != NULL))
                                {

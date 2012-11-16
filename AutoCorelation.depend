@@ -1,9 +1,9 @@
 # depslib dependency file v1.0
-1353098968 source:c:\users\et\desktop\autocorelation\main.cpp
+1353101819 source:c:\users\et\desktop\autocorelation\main.cpp
 	"basis.cpp"
 	"basis_parallel.cpp"
 
-1353100787 c:\users\et\desktop\autocorelation\basis.cpp
+1353102095 c:\users\et\desktop\autocorelation\basis.cpp
 	"defs.cpp"
 
 1352267372 source:c:\users\et\desktop\autocorelation\basis.cpp
@@ -28,10 +28,11 @@
 
 1352845358 c:\users\anjali ashok\autocorelation\basis_parallel.cpp
 
-1353100831 c:\users\et\desktop\autocorelation\defs.cpp
+1353101812 c:\users\et\desktop\autocorelation\defs.cpp
 	<iostream>
 	<stdio.h>
 	<malloc.h>
+	<stdlib.h>
 
 1353097353 c:\users\et\desktop\autocorelation\basis_parallel.cpp
 

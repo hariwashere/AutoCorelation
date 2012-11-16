@@ -2,8 +2,8 @@
 # include "basis_parallel.cpp"
         int main()
         {
-            create_image();
-            image = (char*)malloc(sizeof(char)*image_height*image_width);
+            //create_image();
+            //image = (char*)malloc(sizeof(char)*image_height*image_width);
             //char* result[image_height*image_width];
             meet=(ConsensusGrid*)malloc(sizeof(ConsensusGrid)*image_height*image_width);
             basis = (int*)malloc(sizeof(int)*image_height*image_width);
