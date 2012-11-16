@@ -3,7 +3,7 @@
         #include <malloc.h>
 
         using namespace std;
-        int image_height=128,image_width=128;
+        int image_height=64,image_width=64;
         char* image;//[] ={'0','0','1','1','1','1','0','0','1','1','0','1'};
 
         int *basis;

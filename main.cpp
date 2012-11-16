@@ -13,7 +13,7 @@
             FILE *fp = fopen("image2.txt","w+");
             for(int i=0; i<image_height; i++){
                 for(int j = 0; j<image_width; j++){
-                    meet[i*image_width+j]=consensus(i, j, image,image_height,image_width);
+                    meet[i*image_width+j]=consensus_parallel(i, j, image,image_height,image_width);
 
 
                    // meet[i*image_width+j].occurance = new tuple[(image_height-meet[i*image_width+j].height)*(image_width-meet[i*image_width+j].width)];
@@ -22,7 +22,7 @@
             }
             }
 
-           printf("Caclulating list\n");
+           printf("Calculating list\n");
             calculate_list();
 
           /*  for(int x=0;x<meet[63].height*meet[63].width;x++)
