@@ -152,7 +152,7 @@
                     }
                 }
                 else{
-                    meet[i].occurance_count = -1;
+                    meet[i].occurance_count = 0;
                 }
 
 
@@ -169,6 +169,87 @@
         }
 
         void calculate_basis()
+        {
+                for(int i=0; i<image_height*image_width;i++)
+                {
+                    int max = -1;
+                    int index = i;
+                    for(int j=i;j<image_height*image_width;j++)
+                    {
+                        if(max < meet[j].occurance_count)
+                        {
+                             max = meet[j].occurance_count;
+                             index = j;
+                        }
+                    }
+
+                    ConsensusGrid temp = meet[i];
+                    meet[i] = meet[index];
+                    meet[index] = temp;
+                }
+
+              /*  for(int n = 0;n<image_height*image_width;n++)
+                {
+                    cout << "for " << n << endl;
+                    for(int m =0;m<meet[n].occurance_count;m++)
+                            cout << meet[n].occurance[m].i << " " << meet[n].occurance[m].j << endl;
+                        cout << endl;
+                }*/
+
+                for(int i=0; i<image_height*image_width; i++)
+                {
+                    /// For every meet make count = 0
+                    int count = 0;
+
+                    /// Loop over every element in occurance list
+                    for(int j = 0; j<meet[i].occurance_count; j++)
+                    {
+                        int flag = 0;
+
+                        /// Compare the occurance list of every meet with current meet
+                        for(int k=0; k<image_height*image_width; k++)
+                        {
+                            if( (k!=i) && (meet[k].occurance != NULL))
+                               {
+                                   /// Loop through all occurances
+                                   for(int l=0; l<meet[k].occurance_count; l++)
+                                   {
+                                       if((meet[k].occurance[l].i == meet[i].occurance[j].i) && (meet[k].occurance[l].j == meet[i].occurance[j].j))
+                                        {
+                                                //printf("found! i = %d  j = %d %d\n",i,meet[i].occurance[j].i, meet[i].occurance[j].j);
+                                                flag = 1;
+                                                break;
+                                        }
+                                   }
+                                   if(flag == 1)
+                                    break;
+                               }
+                               if(flag == 1)
+                                break;
+                        }
+                        if(flag != 1)
+                            break;
+                        else
+                            count++;
+
+
+                    }
+                    if((meet[i].occurance_count >0) && (count != meet[i].occurance_count))
+                    {
+                        basis[basis_count++] = i;
+                       // cout << i << endl;
+                       /* for(int m =0;m<meet[i].occurance_count;m++)
+                            cout << meet[i].occurance[m].i << " " << meet[i].occurance[m].j << endl;
+
+                        cout << endl;*/
+                    }
+
+                    else
+                        meet[i].occurance_count = 0;
+                }
+        }
+
+        void calculate_basis_old()
         {
             int not_null_count = 0;
                 for(int i=0; i<image_height*image_width;i++)
@@ -199,7 +280,7 @@ cout<<"the not null count is "<< not_null_count<<endl;
                             cout << meet[n].occurance[m].i << " " << meet[n].occurance[m].j << endl;
                         cout << endl;
                 }*/
-
+not_null_count = image_height * image_width;
                 for(int i=0; i<not_null_count; i++)
                 {
                     /// For every meet make count = 0

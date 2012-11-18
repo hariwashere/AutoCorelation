@@ -2,17 +2,48 @@
 
     void construct_image(){
         image[0] = '0';
-        image[0] = '0';
-        image[0] = '1';
-        image[0] = '1';
-        image[0] = '1';
-        image[0] = '1';
-        image[0] = '0';
-        image[0] = '0';
-        image[0] = '1';
-        image[0] = '1';
-        image[0] = '0';
-        image[0] = '1';
+        image[1] = '0';
+        image[2] = '1';
+        image[3] = '1';
+        image[4] = '1';
+        image[5] = '1';
+        image[6] = '0';
+        image[7] = '0';
+        image[8] = '1';
+        image[9] = '1';
+        image[10] = '0';
+        image[11] = '1';
+    }
+
+    void print_meet(){
+                cout<< "Getting all the meets";
+            for(int i=0; i< image_height* image_width; i++){
+                cout<<" For meet "<<i<<endl;
+                for(int j=0; j< meet[i].height * meet[i].width; j++){
+                    cout<< meet[i].result[j]<< ", ";
+                }
+                cout<<endl;
+
+            }
+    }
+
+    void print_occurances()
+    {
+
+                     for(int i=0; i< image_height* image_width; i++){
+                cout<<" The occurances of meet "<< i<< "with the occurance count"<<meet[i].occurance_count<< endl;
+                for(int j=0; j< meet[i].occurance_count; j++){
+                    cout<<"i = "<< meet[i].occurance[j].i<< " j= "<< meet[i].occurance[j].j<<endl;;
+                }
+            }
+
+    }
+
+    void print_basis(){
+    cout<<"The basis has"<< endl;
+            for(int i=0; i< basis_count; i++ ){
+                cout<< basis[i]<< endl;
+            }
     }
 
         int main()
@@ -33,27 +64,11 @@
                 }
             }
 
-            cout<< "Getting all the meets";
-            for(int i=0; i< 12; i++){
-                cout<<" For meet "<<i<<endl;
-                for(int j=0; j< sizeof(meet[i].result); j++){
-                    cout<< meet[i].result[j]<< ", ";
-                }
-                cout<<endl;
-
-            }
-
            printf("Caclulating list\n");
             calculate_list();
+            print_occurances();
             printf("Calculating basis\n");
             calculate_basis();
-
-            cout<<"The basis has"<< endl;
-            for(int i=0; i< image_height; i++){
-                for(int j=0; j< image_width; j++){
-                   // cout<< meet[i*image_width + j].occurance[0].i;
-                    //cout<< "and the j is"<< meet[i*image_width + j].occurance[0].j<<endl;
-                }
-            }
+            print_basis();
         }
 
