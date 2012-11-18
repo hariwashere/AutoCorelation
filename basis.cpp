@@ -181,8 +181,9 @@
                         {
                              max = meet[j].occurance_count;
                              index = j;
-                             if(i==0)
-                             not_null_count++;
+                        }
+                        if((meet[j].occurance_count != -1) &&(i == 0)){
+                            not_null_count++;
                         }
                     }
 

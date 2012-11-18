@@ -4,9 +4,9 @@
         #include<stdlib.h>
 
         using namespace std;
-        int image_height=4,image_width=3;
-        //char* image;//[] ={'0','0','1','1','1','1','0','0','1','1','0','1'};
-        char image[] ={'0','0','1','1','1','1','0','0','1','1','0','1'};
+        int image_height=64,image_width=64;
+        char* image;//[] ={'0','0','1','1','1','1','0','0','1','1','0','1'};
+        //char image[] ={'0','0','1','1','1','1','0','0','1','1','0','1'};
 
         int *basis;
         int basis_count = 0;
