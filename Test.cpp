@@ -1,6 +1,7 @@
 # include "basis.cpp"
 #include "print.cpp"
-
+#include "expected_results.cpp"
+#include<string.h>
 void construct_image()
 {
     image[0] = '0';
@@ -15,6 +16,23 @@ void construct_image()
     image[9] = '1';
     image[10] = '0';
     image[11] = '1';
+}
+
+void assert_meet()
+{
+    cout<< "Asserting meet..."<<endl;
+    for(int i=0; i< image_height * image_width; i++)
+    {
+        for(int j = 0; j< strlen(expected_meet[i]); j++)
+        {
+            if(meet[i].result[j] != expected_meet[i][j])
+            {
+                cout<<"Error in meet. Expected "<<expected_meet[i][j]<<" at meet "<<i<<" and at position "<<j<<" but got "<<meet[i].result[j];
+                exit(-1);
+            }
+        }
+    }
+    cout<<"Meet is correct"<<endl;
 }
 int main()
 {
@@ -35,7 +53,7 @@ int main()
             meet[i*image_width+j].occurance = new tuple[image_height*image_width];
         }
     }
-
+    assert_meet();
     printf("Caclulating list\n");
     calculate_list();
     printf("Calculating basis\n");
