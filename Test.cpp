@@ -41,6 +41,5 @@ int main()
     printf("Calculating basis\n");
     calculate_basis();
     print_basis();
-    print_occurances();
 }
 

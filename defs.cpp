@@ -19,14 +19,7 @@ static void create_image()
     for(int i=0; i<image_height; i++)
     {
         for(int j = 0; j<image_width; j++)
-        {
-
-            //if(i%2 ==0)
             fprintf(fp,"%d",rand()%2);
-            //else
-            //fprintf(fp,"%d",0);
-
-        }
     }
     fclose(fp);
 }
