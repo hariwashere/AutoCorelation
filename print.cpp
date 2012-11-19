@@ -15,11 +15,11 @@ void print_meet()
 
 void print_occurances()
 {
-    for(int i=0; i< basis_count; i++)
+    for(int i=0; i<image_height*image_width; i++)
     {
-        cout<<" The occurances of meet "<< i<< "with the occurance count"<<meet[basis[i]].occurance_count<< endl;
-        for(int j=0; j< meet[basis[i]].occurance_count; j++)
-            cout<<"i = "<< meet[basis[i]].occurance[j].i<< " j= "<< meet[basis[i]].occurance[j].j<<endl;
+        cout<<" The occurances of meet "<< i<< "with the occurance count"<<meet[i].occurance_count<< endl;
+        for(int j=0; j< meet[i].occurance_count; j++)
+            cout<<"i = "<< meet[i].occurance[j].i<< " j= "<< meet[i].occurance[j].j<<endl;
     }
 }
 

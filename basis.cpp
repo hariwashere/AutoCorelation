@@ -144,7 +144,7 @@ void calculate_list()
                     }
                 }
             }
-            if(meet[i].occurance_count >=2)
+            if(meet[i].occurance_count >=0)
             {
                 meet[i].occurance = new tuple[meet[i].occurance_count];
                 for(int x=0; x<meet[i].occurance_count; x++)

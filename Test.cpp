@@ -34,6 +34,25 @@ void assert_meet()
     }
     cout<<"Meet is correct"<<endl;
 }
+
+void assert_occurance()
+{
+    cout<< "Asserting occurance..."<<endl;
+    for(int x=0; x< image_height * image_width; x++)
+    {
+        for(int y = 0; expected_occurance[x][y] != -1; y+=2)
+        {
+            if((meet[x].occurance[y/2].i != expected_occurance[x][y]) || (meet[x].occurance[y/2].j != expected_occurance[x][y+1]))
+            {
+                cout<<"Error in occurance. Expected (i,j) value ("<<expected_occurance[x][y]<<","<<expected_occurance[x][y+1]<<")"
+                    <<" for meet "<<x<<" at "<<y<<"th occurance but got ("<<meet[x].occurance[y/2].i<<","<<meet[x].occurance[y/2].j<<")";
+                exit(-1);
+            }
+        }
+    }
+    cout<<"Occurance is correct"<<endl;
+}
+
 int main()
 {
     image_height=4;
@@ -54,8 +73,8 @@ int main()
         }
     }
     assert_meet();
-    printf("Caclulating list\n");
     calculate_list();
+    assert_occurance();
     printf("Calculating basis\n");
     calculate_basis();
     print_basis();
