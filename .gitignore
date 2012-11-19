@@ -2,3 +2,7 @@ AutoCorelation.layout
 main.o
 main.exe
 basis.o
+bin/**
+obj/**
+image2.txt
+

@@ -150,6 +150,7 @@
                     {
                         meet[i].occurance[x] = temp_occurance_list[x];
                     }
+                    not_null_count++;
                 }
                 else{
                     meet[i].occurance_count = 0;
@@ -170,6 +171,7 @@
 
         void calculate_basis()
         {
+            cout<<"Not null count "<<not_null_count<<endl;
                 for(int i=0; i<image_height*image_width;i++)
                 {
                     int max = -1;
@@ -187,6 +189,12 @@
                     meet[i] = meet[index];
                     meet[index] = temp;
                 }
+                cout<<" The 48th value is "<< meet[48].occurance_count<<endl;
+                cout<<" The 49th value is "<< meet[49].occurance_count<<endl;
+                for(int x=0; x<49; x++){
+                 //   if(meet[x].occurance_count ==0)
+               //     cout<<"In here for "<<x<<endl;
+                }
 
               /*  for(int n = 0;n<image_height*image_width;n++)
                 {
@@ -196,7 +204,7 @@
                         cout << endl;
                 }*/
 
-                for(int i=0; i<image_height*image_width; i++)
+                for(int i=0; i<not_null_count; i++)
                 {
                     /// For every meet make count = 0
                     int count = 0;
@@ -207,7 +215,7 @@
                         int flag = 0;
 
                         /// Compare the occurance list of every meet with current meet
-                        for(int k=0; k<image_height*image_width; k++)
+                        for(int k=0; k<not_null_count; k++)
                         {
                             if( (k!=i) && (meet[k].occurance != NULL))
                                {
