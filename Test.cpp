@@ -23,7 +23,16 @@ void assert_meet()
     cout<< "Asserting meet..."<<endl;
     for(int i=0; i< image_height * image_width; i++)
     {
-        for(int j = 0; j< strlen(expected_meet[i]); j++)
+        int expected_size = strlen(expected_meet[i]);
+        int actual_size = meet[i].height * meet[i].width;
+
+        if(expected_size != actual_size)
+        {
+            cout<<"Error in meet. Size mismatch in meet "<<i<<endl;
+            exit(-1);
+        }
+
+        for(int j = 0; j < expected_size; j++)
         {
             if(meet[i].result[j] != expected_meet[i][j])
             {
@@ -53,6 +62,32 @@ void assert_occurance()
     cout<<"Occurance is correct"<<endl;
 }
 
+void assert_basis()
+{
+    cout<< "Asserting basis..."<<endl;
+    for(int i=0; i< basis_count; i++)
+    {
+        int expected_size = strlen(expected_basis[i]);
+        int actual_size = meet[basis[i]].height * meet[basis[i]].width;
+
+        if(expected_size != actual_size)
+        {
+            cout<<"Error in basis. Size mismatch in basis "<<i<<"'s meet. Expected "<< expected_size<< " Actual "<< actual_size<<endl;
+            exit(-1);
+        }
+
+        for(int j = 0; j< strlen(expected_basis[i]); j++)
+        {
+            if(meet[basis[i]].result[j] != expected_basis[i][j])
+            {
+                cout<<"Error in basis. Mismatch in the "<<i<<"th basis";
+                exit(-1);
+            }
+        }
+    }
+    cout<<"Basis is correct"<<endl;
+}
+
 int main()
 {
     image_height=4;
@@ -75,8 +110,7 @@ int main()
     assert_meet();
     calculate_list();
     assert_occurance();
-    printf("Calculating basis\n");
     calculate_basis();
-    print_basis();
+    assert_basis();
 }
 

@@ -28,3 +28,5 @@ int occurance_11[] = {-1};
 
 int* expected_occurance[] = {occurance_0, occurance_1, occurance_2, occurance_3, occurance_4, occurance_5,
                              occurance_6, occurance_7, occurance_8, occurance_9, occurance_10, occurance_11};
+
+char* expected_basis[] = {meet_5, meet_9, meet_6};

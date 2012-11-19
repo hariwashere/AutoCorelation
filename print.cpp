@@ -1,15 +1,19 @@
-void print_meet()
+void print_meet(int index)
+{
+    cout<<" For meet "<<index<<endl;
+    for(int j=0; j< meet[index].height * meet[index].width; j++)
+    {
+        cout<< meet[index].result[j]<< ", ";
+    }
+    cout<<endl;
+}
+
+void print_meets()
 {
     cout<< "Getting all the meets";
     for(int i=0; i< image_height* image_width; i++)
     {
-        cout<<" For meet "<<i<<endl;
-        for(int j=0; j< meet[i].height * meet[i].width; j++)
-        {
-            cout<< meet[i].result[j]<< ", ";
-        }
-        cout<<endl;
-
+        print_meet(i);
     }
 }
 
@@ -29,7 +33,8 @@ void print_basis()
     cout<<"The basis has"<< endl;
     for(int i=0; i< basis_count; i++ )
     {
-        cout<< basis[i]<< endl;
+        cout<<"The "<<i+1<<"th meet in the basis is"<< endl;
+        print_meet(basis[i]);
     }
 }
 
