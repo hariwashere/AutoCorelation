@@ -1,4 +1,5 @@
 # include "basis.cpp"
+#include "basis_parallel.cpp"
 #include "print.cpp"
 #include "expected_results.cpp"
 #include<string.h>
@@ -103,14 +104,14 @@ int main()
     {
         for(int j = 0; j<image_width; j++)
         {
-            meet[i*image_width+j]=consensus(i, j, image,image_height,image_width);
+            meet[i*image_width+j]=consensus_parallel(i, j, image,image_height,image_width);
             meet[i*image_width+j].occurance = new tuple[image_height*image_width];
         }
     }
     assert_meet();
-    calculate_list();
+    calculate_list_parallel();
     assert_occurance();
-    calculate_basis();
+    calculate_basis_parallel();
     assert_basis();
 }
 
