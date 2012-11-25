@@ -179,13 +179,15 @@ void calculate_basis_parallel()
         meet[index] = temp;
     }
 
-    _Cilk_for(int i=0; i<not_null_count; i++)
+    for(int i=0; i<not_null_count; i++)
     {
         /// For every meet make count = 0
         int count = 0;
+	
+	int temp_count = meet[i].occurance_count;
 
         /// Loop over every element in occurance list
-        for(int j = 0; j<meet[i].occurance_count; j++)
+        for(int j = 0; j<temp_count; j++)
         {
             int flag = 0;
 
@@ -210,28 +212,27 @@ void calculate_basis_parallel()
                 if(flag == 1)
                     break;
             }
-            if(flag != 1)
-                break;
+            if(flag != 1);
+               // break;
             else
                 count++;
 
 
         }
-        if((meet[i].occurance_count >0) && (count != meet[i].occurance_count))
-            basis_temp[i] = 1;
+        if((meet[i].occurance_count >0) && (count != temp_count))
+            basis[basis_count++] = i;
         else
             meet[i].occurance_count = 0;
     }
-    _Cilk_sync;
 
 
-    for(int i=0;i<not_null_count;i++)
+    /*for(int i=0;i<not_null_count;i++)
     {
 	if(basis_temp[i] == 1)
 	{
 		basis[basis_count++] = i;
 	}
-    }
+    }*/
 }
 
 
