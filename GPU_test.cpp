@@ -1,3 +1,33 @@
+__global__ compute_Dontcares(char* image_ptr,char* row_flag_ptr,char* col_flag_ptr,char* result_ptr, int i, int j)
+    {
+        int row = blockIdy.y*blockDim.y + threadIdx.y + i;
+        int col = blockIdx.x*blockDim.x + threadIdx.x + j;
+        if(image[row*image_width+col] == image[(row-i)*image_width+col-j])
+        {
+            if(image[row*image_width+col] == '1')
+                result[(row-i)*(image_width-j)+ (col-j)]='1';
+
+            else if(image[row*image_width+col] == '0')
+                result[(row-i)*(image_width-j)+ (col-j)]='0';
+
+            row_flag[row-i]=1;
+            col_flag[col-j]=1;
+        }
+        else
+            result[(row-i)*(image_width-j)+ (col-j)]='o';
+        //result++;
+    }
+
+
+__global__ compute_Result(char* ptr_ptr ,int image_height, int image_width, int row_start,int col_start)
+    {
+        int row = blockIdy.y*blockDim.y + threadIdx.y + row_start;
+        int col = blockIdx.x*blockDim.x + threadIdx.x + col_start;
+        result2_ptr[(row - row_start) * (col_end - col_start + 1) + (col - col_start)] = ptr[row*(image_width-j) + col];
+    }
+
+
+
 ConsensusGrid consensus_parallel(int i, int j,char* image, int image_height, int image_width)
 {
     ConsensusGrid consensus_grid;
@@ -17,36 +47,8 @@ ConsensusGrid consensus_parallel(int i, int j,char* image, int image_height, int
     cudaMemcpy(col_flag_ptr, col_flag, sizeof(image_width-j) ,  cudaMemcpyHostToDevice);
 
    // __global__ functions are called:  Func<<< Dg, Db, Ns  >>>(parameter);
-//get rid of these for loops
-    for(int row=i; row<image_height; row++)
-    {
-        for(int col=j; col<image_width; col++)
-        {
-            //have to use some thread id to replace row and col. but initialization of row = i and col = j?
-            compute_Dontcares<<<16,16>>>(image_ptr,row_flag_ptr, col_flag_ptr, result_ptr,i,j);
-            //defined below:
-            /*__global__ compute_Dontcares(char* image_ptr,char* row_flag_ptr,char* col_flag_ptr,char* result_ptr)
-            {
-            int row = blockIdy.y*blockDim.y + threadIdx.y + i;
-            int col = blockIdx.x*blockDim.x + threadIdx.x + j;
-            if(image[row*image_width+col] == image[(row-i)*image_width+col-j])
-            {
-                if(image[row*image_width+col] == '1')
-                    result[(row-i)*(image_width-j)+ (col-j)]='1';
+    compute_Dontcares<<<image_height,image_width>>>(image_ptr,row_flag_ptr, col_flag_ptr, result_ptr,i,j);
 
-                else if(image[row*image_width+col] == '0')
-                    result[(row-i)*(image_width-j)+ (col-j)]='0';
-
-                row_flag[row-i]=1;
-                col_flag[col-j]=1;
-            }
-            else
-                result[(row-i)*(image_width-j)+ (col-j)]='o';
-            //result++;
-            }
-        }*/
-        }
-    }
     cudaDeviceSynchronize();
     cudaMemcpy(result, result_ptr, sizeof((image_height-i)*(image_width-j)),  cudaMemcpyDeviceToHost);
     cudaMemcpy(row_flag, row_flag_ptr, sizeof((image_height-i)),  cudaMemcpyDeviceToHost);
@@ -90,20 +92,9 @@ ConsensusGrid consensus_parallel(int i, int j,char* image, int image_height, int
     cudaMemcpy(ptr_ptr, ptr, sizeof((image_height-i)*(image_width-j)) ,  cudaMemcpyHostToDevice);
 
     consensus_grid.result = result2;
-    //get rid of these for loops
-    for(int row=row_start; row<=row_end; row++) //_Cilk_
-    {
-        for(int col=col_start; col<=col_end; col++) //_Cilk_
-        {
-           __global__ compute_Result<<<1, N>>>(ptr_ptr , image_height, image_width);
-            //defined below:
-           /* compute_Result(char* ptr_ptr ,int image_height, int image_width)
-            {
-                result2_ptr[(row - row_start) * (col_end - col_start + 1) + (col - col_start)] = ptr[row*(image_width-j) + col];
-            }
-            */
-        }
-    }
+
+    compute_Result<<<row_end,col_end>>>(ptr_ptr , image_height, image_width, row_start,col_start);
+
     cudaDeviceSynchronize();
     cudaMemcpy(result2, result2_ptr, sizeof((char)*(row_end-row_start+1)*(col_end-col_start+1)),  cudaMemcpyDeviceToHost);
 

@@ -38,6 +38,12 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="GPU_basis.cpp">
+			<Option target="Debug" />
+		</Unit>
+		<Unit filename="GPU_test.cpp">
+			<Option target="Debug" />
+		</Unit>
 		<Unit filename="Test.cpp">
 			<Option target="Test" />
 		</Unit>
