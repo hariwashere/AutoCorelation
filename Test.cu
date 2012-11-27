@@ -31,6 +31,7 @@ void assert_meet()
         if(expected_size != actual_size)
         {
             cout<<"Error in meet. Size mismatch in meet "<<i<<endl;
+	    cout << "Actual size = " << actual_size << ". EXpected size = " << expected_size << endl;
             exit(-1);
         }
 
@@ -110,9 +111,9 @@ int main()
         }
     }
     assert_meet();
-    calculate_list_parallel();
+    calculate_list();
     assert_occurance();
-    calculate_basis_parallel();
+    calculate_basis();
     assert_basis();
 }
 
