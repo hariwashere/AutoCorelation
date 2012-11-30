@@ -167,7 +167,6 @@ void calculate_list()
 
 void calculate_basis()
 {
-    cout<<"Not null count "<<not_null_count<<endl;
     for(int i=0; i<image_height*image_width; i++)
     {
         int max = -1;
@@ -190,7 +189,6 @@ void calculate_basis()
     {
         /// For every meet make count = 0
         int count = 0;
-
         /// Loop over every element in occurance list
         for(int j = 0; j<meet[i].occurance_count; j++)
         {
