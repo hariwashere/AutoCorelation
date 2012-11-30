@@ -158,9 +158,16 @@ void assert_parallel_code()
 
     for(int i=0; i< basis_count; i++)
     {
-        if(basis[i] != basis_serial[i])
+        int flag = 0;
+        for(int j=0; j<basis_count; j++){
+            if(basis_serial[i] == basis[j]){
+                    flag = 1;
+                    break;
+            }
+        }
+        if(flag != 1)
         {
-            cout<<"Mismatch in basis at the "<<i<<"th position"<<endl;
+            cout<<"The basis at position "<<i<<" which was meet "<<basis[i]<<" was not found in the parallel code"<<endl;
             exit(-1);
         }
     }
