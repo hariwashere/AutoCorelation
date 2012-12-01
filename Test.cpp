@@ -89,93 +89,8 @@ void assert_basis()
     cout<<"Basis is correct"<<endl;
 }
 
-void reset_values()
-{
-    delete(meet);
-    delete(basis);
-    delete(image);
-    image = (char*)malloc(sizeof(char)*image_height*image_width);
-    read_raw_image("image.raw",image,image_height,image_width);
-
-    meet=(ConsensusGrid*)malloc(sizeof(ConsensusGrid)*image_height*image_width);
-    basis = (int*)malloc(sizeof(int)*image_height*image_width);
-    not_null_count = 0;
-    basis_count = 0;
-}
-
-void compute_serial_basis()
-{
-    for(int i=0; i<image_height; i++)
-    {
-        for(int j = 0; j<image_width; j++)
-        {
-            meet[i*image_width+j]=consensus(i, j, image,image_height,image_width);
-            meet[i*image_width+j].occurance = new tuple[image_height*image_width];
-        }
-    }
-
-    calculate_list();
-    calculate_basis();
-}
-
-void compute_parallel_basis()
-{
-    for(int i=0; i<image_height; i++)
-    {
-        for(int j = 0; j<image_width; j++)
-        {
-            meet[i*image_width+j]=consensus_parallel(i, j, image,image_height,image_width);
-            meet[i*image_width+j].occurance = new tuple[image_height*image_width];
-        }
-    }
-
-    calculate_list_parallel();
-    calculate_basis_parallel();
-}
-
-void assert_parallel_code()
-{
-    cout<<endl<<"Asserting parallel result with serial"<<endl;
-    image_height = 32;
-    image_width = 32;
-    create_image();
-
-    reset_values();
-    compute_serial_basis();
-
-    int *basis_serial = (int*)malloc(sizeof(int)* basis_count);
-    int basis_count_serial = basis_count;
-    memcpy(basis_serial, basis, sizeof(int)*basis_count);
-
-    reset_values();
-    compute_parallel_basis();
-
-    if(basis_count != basis_count_serial)
-    {
-        cout<<"Basis count mismatch. Serial: "<<basis_count_serial<<" Parallel: "<<basis_count;
-        exit(-1);
-    }
-
-    for(int i=0; i< basis_count; i++)
-    {
-        int flag = 0;
-        for(int j=0; j<basis_count; j++){
-            if(basis_serial[i] == basis[j]){
-                    flag = 1;
-                    break;
-            }
-        }
-        if(flag != 1)
-        {
-            cout<<"The basis at position "<<i<<" which was meet "<<basis[i]<<" was not found in the parallel code"<<endl;
-            exit(-1);
-        }
-    }
-    cout<<"Basis computed with parallel code matched the serial one";
-}
 int main()
 {
-    cout<<"Asserting the output of serial code with a precomputed one"<<endl;
     image_height=4;
     image_width=3;
     image = (char*)malloc(sizeof(char)*image_height*image_width);
@@ -184,19 +99,19 @@ int main()
     meet=(ConsensusGrid*)malloc(sizeof(ConsensusGrid)*image_height*image_width);
     basis = (int*)malloc(sizeof(int)*image_height*image_width);
 
+    FILE *fp = fopen("image2.txt","w+");
     for(int i=0; i<image_height; i++)
     {
         for(int j = 0; j<image_width; j++)
         {
-            meet[i*image_width+j]=consensus(i, j, image,image_height,image_width);
+            meet[i*image_width+j]=consensus_parallel(i, j, image,image_height,image_width);
             meet[i*image_width+j].occurance = new tuple[image_height*image_width];
         }
     }
     assert_meet();
-    calculate_list();
+    calculate_list_parallel();
     assert_occurance();
-    calculate_basis();
+    calculate_basis_parallel();
     assert_basis();
-    assert_parallel_code();
 }
 

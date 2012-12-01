@@ -3,7 +3,7 @@
 	"basis.cpp"
 	"print.cpp"
 
-1354253740 c:\users\et\desktop\autocorelation\basis.cpp
+1353305898 c:\users\et\desktop\autocorelation\basis.cpp
 	"defs.cpp"
 
 1352267372 source:c:\users\et\desktop\autocorelation\basis.cpp
@@ -11,7 +11,7 @@
 	<stdio.h>
 	<malloc.h>
 
-1354255063 source:c:\users\et\desktop\autocorelation\test.cpp
+1353308723 source:c:\users\et\desktop\autocorelation\test.cpp
 	"basis.cpp"
 	"print.cpp"
 	"expected_results.cpp"

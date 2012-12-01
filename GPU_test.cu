@@ -76,8 +76,8 @@ ConsensusGrid consensus_parallel(int i, int j,char* image, int image_height, int
 			cout <<"p " << ptr[ii] << ", " ;
 		}
 	}
-*/	cout<< endl << endl;
-	int row_start,row_end;
+	cout<< endl << endl;
+*/	int row_start,row_end;
 	int col_start,col_end;
 	for(row_start=0; row_start<(image_height-i); row_start++)
 	{

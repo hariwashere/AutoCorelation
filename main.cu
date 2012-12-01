@@ -1,6 +1,6 @@
-# include "basis.cpp"
-#include "print.cpp"
-# include "basis_parallel.cpp"
+# include "basis.cu"
+#include "print.cu"
+# include "GPU_test.cu"
 
 int main(int argc, char** argv)
 {
@@ -29,13 +29,13 @@ int main(int argc, char** argv)
 
 		printf("Calculating list\n");
 		if(atoi(argv[3]) == 1)
-			calculate_list_parallel();
+			calculate_list();
 		else
 			calculate_list();
 
 		printf("Calculating basis\n");
 		if(atoi(argv[3]) == 1)
-			calculate_basis_parallel();
+			calculate_basis();
 		else
 			calculate_basis();
 
